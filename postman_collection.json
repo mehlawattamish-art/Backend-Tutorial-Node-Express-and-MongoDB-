@@ -1,0 +1,175 @@
+{
+  "info": {
+    "_postman_id": "c1f7a28e-5b1b-4cf7-9a84-0e311a3b8cb2",
+    "name": "Backend Tutorial - Node Express & MongoDB",
+    "description": "Postman API Collection to test User Auth and Post CRUD operations for the Backend Tutorial.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000",
+      "type": "string"
+    },
+    {
+      "key": "postId",
+      "value": "REPLACE_WITH_POST_ID",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Users (Authentication)",
+      "item": [
+        {
+          "name": "1. Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"tamish\",\n  \"email\": \"tamish@example.com\",\n  \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "register"]
+            },
+            "description": "Registers a new user and hashes the password with bcrypt."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tamish@example.com\",\n  \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "login"]
+            },
+            "description": "Authenticates the user and verifies the password hash."
+          },
+          "response": []
+        },
+        {
+          "name": "3. Logout User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tamish@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "users", "logout"]
+            },
+            "description": "Logs out the user."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Posts (CRUD Operations)",
+      "item": [
+        {
+          "name": "1. Create Post [CREATE]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tamish Mehlawat\",\n  \"description\": \"My first backend tutorial post!\",\n  \"age\": 22\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/posts/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "posts", "create"]
+            },
+            "description": "Creates a new post document in MongoDB."
+          },
+          "response": []
+        },
+        {
+          "name": "2. Get All Posts [READ]",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/posts/getPosts",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "posts", "getPosts"]
+            },
+            "description": "Retrieves all posts stored in MongoDB."
+          },
+          "response": []
+        },
+        {
+          "name": "3. Update Post [UPDATE]",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated description via PATCH request\",\n  \"age\": 23\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/posts/update/{{postId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "posts", "update", "{{postId}}"]
+            },
+            "description": "Updates an existing post by its MongoDB ObjectId (_id)."
+          },
+          "response": []
+        },
+        {
+          "name": "4. Delete Post [DELETE]",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/posts/delete/{{postId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "posts", "delete", "{{postId}}"]
+            },
+            "description": "Deletes a post document by its MongoDB ObjectId (_id)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
